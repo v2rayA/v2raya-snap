@@ -15,7 +15,6 @@ if [ "$(basename $P_DIR)" != "v2rayA" ]; then
 	echo -e "The script should be run from the v2rayA directory, instead of $PWD" >/dev/stderr
 	exit 2
 fi
-cd $P_DIR/install/
 
 
 sed -i.backup "s/@VERSION@/$VERSION/g" snap/snapcraft.yaml
@@ -25,7 +24,6 @@ for ARCH in ${architectures[@]}; do
 	if [ ! -e "installer_debian_${ARCH}_${VERSION}.deb" ]; then
 	wget "https://github.com/v2rayA/v2rayA/releases/download/v${VERSION}/installer_debian_${ARCH}_${VERSION}.deb" \
 	-O "$P_DIR/installer_debian_${ARCH}_${VERSION}.deb"
-	ln -t . ../installer_debian_${ARCH}_${VERSION}.deb # Snapcraft doesn't support symlinks, so we have to hardlink
 	fi
 	snapcraft snap --output v2raya_${VERSION}_${ARCH}.snap
 	mv -f snap/snapcraft.yaml.backup-arch snap/snapcraft.yaml
@@ -35,7 +33,6 @@ done
 # Cleanup
 for ARCH in ${architectures[@]}; do
 	rm -f installer_debian_${ARCH}_${VERSION}.deb $P_DIR/installer_debian_${ARCH}_${VERSION}.deb
-	mv v2raya_${VERSION}_${ARCH}.snap $P_DIR/
 done
 mv -f snap/snapcraft.yaml.backup snap/snapcraft.yaml
 
