@@ -1,7 +1,7 @@
 # v2raya-snap
 Snapcraft files for v2rayA
 
-To build the snap yourself, just run. Replace "1.5.8.1" by the version you need.
+To build the snap yourself, just run the command below. Replace `1.5.8.1` by the version you need.
 ```
 ./snap.sh 1.5.8.1
 ```
