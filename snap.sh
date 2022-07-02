@@ -15,6 +15,10 @@ if [ "$(basename $P_DIR)" != "v2raya-snap" ]; then
 	echo -e "The script should be run from the v2rayA directory, instead of $PWD" >/dev/stderr
 	exit 2
 fi
+if [ -z "$(wget --version)" ] || [ -z "$(snapcraft --version)" ]; then
+	echo "wget and snapcraft are required, but not installed"
+	exit 3
+fi
 
 
 sed -i.backup "s/@VERSION@/$VERSION/g" snap/snapcraft.yaml
