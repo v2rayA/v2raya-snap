@@ -1,2 +1,4 @@
 *.deb
 *.snap
+snap/snapcraft.yaml.backup
+snap/snapcraft.yaml.backup-arch
