@@ -42,6 +42,7 @@ mv -f snap/snapcraft.yaml.backup snap/snapcraft.yaml
 
 
 # Should publish snap here, but it's a really good idea to smoke test it by hand before pushing to the stable chanell
+#snapcraft export-login snapcraft-credfile
 #export SNAPCRAFT_STORE_CREDENTIALS=$(cat snapcraft-credfile)
 #snapcraft login
 #snapcraft upload v2raya_${VERSION}_amd64.snap --release stable
