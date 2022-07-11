@@ -1,7 +1,8 @@
 #/bin/bash
 
-sleep 10;
 sudo /bin/bash -c "\
+echo 'Please wait...';\
+sleep 10;
 snap connect v2raya:firewall-control;\
 snap connect v2raya:network;\
 snap connect v2raya:network-bind;\
