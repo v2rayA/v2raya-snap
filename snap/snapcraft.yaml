@@ -77,6 +77,5 @@ apps:
       - network-bind
       - firewall-control
       - v2raya-files
-      - kernel-module-control
       - network-control
       - network-observe
