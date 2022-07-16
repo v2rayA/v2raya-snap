@@ -34,10 +34,6 @@ for ARCH in ${architectures[@]}; do
 done
 
 
-# Cleanup
-for ARCH in ${architectures[@]}; do
-	rm -f installer_debian_${ARCH}_${VERSION}.deb $P_DIR/installer_debian_${ARCH}_${VERSION}.deb
-done
 mv -f snap/snapcraft.yaml.backup snap/snapcraft.yaml
 
 
