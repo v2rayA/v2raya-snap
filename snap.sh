@@ -12,7 +12,7 @@ set -eu
 # Sanity check
 P_DIR=$PWD
 if [ "$(basename $P_DIR)" != "v2raya-snap" ]; then
-	echo -e "The script should be run from the v2rayA directory, instead of $PWD" >/dev/stderr
+	echo -e "The script should be run from the v2raya-snap directory, instead of $PWD" >/dev/stderr
 	exit 2
 fi
 if [ -z "$(wget --version)" ] || [ -z "$(snapcraft --version)" ]; then
