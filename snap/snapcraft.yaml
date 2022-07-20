@@ -55,14 +55,12 @@ plugs:
       - /etc/v2raya/boltv4.db
       - /etc/v2raya/config.json
       - /etc/resolv.conf
-      - /run/user/0
     write:
       - /var/log/v2raya-snap.log
       - /etc/v2raya
       - /etc/v2raya/boltv4.db
       - /etc/v2raya/config.json
       - /etc/resolv.conf
-      - /run/user/0
 
 apps:
   v2raya:
