@@ -46,14 +46,6 @@ parts:
     source-type: deb
     plugin: dump
 
-plugs:
-  v2raya-files:
-    interface: system-files
-    read:
-      - /etc/resolv.conf
-    write:
-      - /etc/resolv.conf
-
 apps:
   v2raya:
     daemon: simple
@@ -67,6 +59,5 @@ apps:
       - network
       - network-bind
       - firewall-control
-      - v2raya-files
       - network-control
       - network-observe

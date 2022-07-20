@@ -8,6 +8,5 @@ snap connect v2raya:network
 snap connect v2raya:network-bind
 snap connect v2raya:network-control
 snap connect v2raya:network-observe
-snap connect v2raya:v2raya-files
 snap start v2raya
 EOF
