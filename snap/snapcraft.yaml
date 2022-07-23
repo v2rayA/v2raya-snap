@@ -61,4 +61,3 @@ apps:
       - network-bind
       - firewall-control
       - network-control
-      - network-observe
