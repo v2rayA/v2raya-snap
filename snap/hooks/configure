@@ -1,0 +1,4 @@
+#!/bin/bash
+set -u
+
+mkdir -p "$SNAP_DATA/geoip"
