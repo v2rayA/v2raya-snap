@@ -18,4 +18,4 @@ Then give it all the required  permissions, and start:
 ./start-snap.sh
 ```
 
-The `start-snap.sh` script is only needed when installing from a `.snap` file for development/testing purposes. The end user wishing to install v2rayA from snapcraft.io doesn't have to paste all these commands. A simple `snap install v2raya` would work just fine when the snap is released to snapcraft. 
+The `start-snap.sh` script is only needed when installing from a `.snap` file for development/testing purposes. The end user wishing to install v2rayA from snapcraft.io doesn't have to paste all these commands. A simple `snap install v2raya` is enough to install the snap from snapcraft.io.
