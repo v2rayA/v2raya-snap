@@ -15,7 +15,9 @@ snap install --dangerous --jailmode ./v2raya_1.5.8.1_amd64.snap
 
 Then give it all the required  permissions, and start:
 ```
-./start-snap.sh
+snap connect v2raya:firewall-control
+snap connect v2raya:network-control
+snap start v2raya
 ```
 
-The `start-snap.sh` script is only needed when installing from a `.snap` file for development/testing purposes. The end user wishing to install v2rayA from snapcraft.io doesn't have to paste all these commands. A simple `snap install v2raya` is enough to install the snap from snapcraft.io.
+The above action is only required when installing from a `.snap` file for development/testing purposes. The end user wishing to install v2rayA from snapcraft.io doesn't have to paste all these commands. A simple `snap install v2raya` is sufficient to install the snap from [snapcraft](https://snapcraft.io/v2raya).
