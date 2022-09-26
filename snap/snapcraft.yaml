@@ -45,6 +45,19 @@ parts:
     source: installer_debian_@ARCH@_@VERSION@.deb
     source-type: deb
     plugin: dump
+  # This wrappper is a workaround for both xdg-open and dekstop entries with being broken in snapcraft
+  v2raya-browser-wrapper:
+    plugin: nil
+    override-build: |
+      echo -e '#!/bin/bash\nxdg-open http://localhost:2017' > v2raya-browser-wrapper
+      chmod +x v2raya-browser-wrapper
+      cp v2raya-browser-wrapper /root/parts/v2raya-browser-wrapper/install/
+    stage:
+      - v2raya-browser-wrapper
+    stage:
+      - v2raya-browser-wrapper
+    prime:
+      - v2raya-browser-wrapper
 
 apps:
   v2raya:
@@ -61,3 +74,7 @@ apps:
       - network-bind
       - firewall-control
       - network-control
+  v2raya-browser-wrapper:
+    command: v2raya-browser-wrapper
+    plugs:
+      - desktop

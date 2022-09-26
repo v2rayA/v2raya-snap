@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=v2rayA
+Categories=Network;
+Keywords=Internet;VPN;Proxy;v2ray;v2raya
+Exec=v2raya.v2raya-browser-wrapper
+Icon=${SNAP}/meta/gui/v2raya-browser-wrapper.png
