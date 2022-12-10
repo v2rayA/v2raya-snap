@@ -25,14 +25,12 @@ parts:
       mkdir -p /root/parts/v2ray-core/install/usr/local/bin
       mkdir -p /root/parts/v2ray-core/install/usr/local/{share,etc}/v2ray
       cp /usr/local/bin/v2ray               /root/parts/v2ray-core/install/usr/local/bin/
-      cp /usr/local/bin/v2ctl               /root/parts/v2ray-core/install/usr/local/bin/
       cp /usr/local/share/v2ray/geoip.dat   /root/parts/v2ray-core/install/usr/local/share/v2ray/
       cp /usr/local/share/v2ray/geosite.dat /root/parts/v2ray-core/install/usr/local/share/v2ray/
       cp /usr/local/etc/v2ray/config.json   /root/parts/v2ray-core/install/usr/local/etc/v2ray/
     filesets:
       v2ray-core-files: [
       usr/local/bin/v2ray,
-      usr/local/bin/v2ctl,
       usr/local/share/v2ray/geoip.dat,
       usr/local/share/v2ray/geosite.dat,
       usr/local/etc/v2ray/config.json
