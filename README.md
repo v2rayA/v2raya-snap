@@ -20,4 +20,4 @@ snap connect v2raya:network-control
 snap start v2raya
 ```
 
-The above action is only required when installing from a `.snap` file for development/testing purposes. The end user wishing to install v2rayA from snapcraft.io doesn't have to paste all these commands. A simple `snap install v2raya` is sufficient to install the snap from [snapcraft](https://snapcraft.io/v2raya).
+The aformentioned actions are only required when installing from a `.snap` file for development/testing purposes. The end user wishing to install v2rayA from snapcraft.io doesn't have to paste all these commands. A simple `snap install v2raya` is sufficient to install the snap from [snapcraft](https://snapcraft.io/v2raya).
