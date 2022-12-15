@@ -64,7 +64,7 @@ apps:
     environment:
       V2RAYA_LOG_FILE: $SNAP_DATA/log/v2raya-snap.log
       V2RAYA_CONFIG:   $SNAP_DATA/etc
-      V2RAY_LOCATION_ASSET: $SNAP_DATA/geoip
+      V2RAYA_V2RAY_ASSETSDIR: $SNAP_DATA/geoip
       V2RAYA_ADDRESS:  127.0.0.1:2017
     restart-condition: on-failure
     install-mode: enable
