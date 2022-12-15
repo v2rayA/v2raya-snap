@@ -52,8 +52,6 @@ parts:
       cp v2raya-browser-wrapper /root/parts/v2raya-browser-wrapper/install/
     stage:
       - v2raya-browser-wrapper
-    stage:
-      - v2raya-browser-wrapper
     prime:
       - v2raya-browser-wrapper
 
