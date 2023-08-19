@@ -17,7 +17,7 @@ if [ "$(basename $P_DIR)" != "v2raya-snap" ]; then
 fi
 if [ -z "$(git --version)" ] || [ -z "$(wget --version)" ] || [ -z "$(snapcraft --version)" ]; then
 	echo "git, wget and snapcraft are required, but not installed"
-	exit 3
+	exit 1
 fi
 
 git checkout snap/snapcraft.yaml
