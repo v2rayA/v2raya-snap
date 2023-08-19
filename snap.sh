@@ -22,7 +22,7 @@ fi
 
 
 sed -i.backup "s/@VERSION@/$VERSION/g" snap/snapcraft.yaml
-declare readonly architectures=("amd64") # Add your architectures here
+declare readonly architectures=("x64") # Add your architectures here
 for ARCH in ${architectures[@]}; do
 	sed -i.backup-arch "s/@ARCH@/$ARCH/g" snap/snapcraft.yaml
 	if [ ! -e "installer_debian_${ARCH}_${VERSION}.deb" ]; then
