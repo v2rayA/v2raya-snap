@@ -15,12 +15,12 @@ if [ "$(basename $P_DIR)" != "v2raya-snap" ]; then
 	echo -e "The script should be run from the v2raya-snap directory, instead of $PWD" >/dev/stderr
 	exit 2
 fi
-if [ -z "$(wget --version)" ] || [ -z "$(snapcraft --version)" ]; then
-	echo "wget and snapcraft are required, but not installed"
+if [ -z "$(git --version)" ] || [ -z "$(wget --version)" ] || [ -z "$(snapcraft --version)" ]; then
+	echo "git, wget and snapcraft are required, but not installed"
 	exit 3
 fi
 
-
+git checkout snap/snapcraft.yaml
 sed -i.backup "s/@VERSION@/$VERSION/g" snap/snapcraft.yaml
 declare readonly architectures=("x64") # Add your architectures here
 for ARCH in ${architectures[@]}; do
