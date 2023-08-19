@@ -2,7 +2,7 @@
 # Parse arguments
 if [ -z "$1" ] || [ $# -gt 1 ]; then
 	echo -e "Usage: $0 [VERSION]\n\nE.g. $0 1.5.7" >/dev/stderr
-	exit 1
+	exit 2
 else
 	VERSION="$1"
 fi
