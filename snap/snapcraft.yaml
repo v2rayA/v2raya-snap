@@ -43,7 +43,7 @@ parts:
     source: installer_debian_@ARCH@_@VERSION@.deb
     source-type: deb
     plugin: dump
-  # This wrappper is a workaround for both xdg-open and dekstop entries with being broken in snapcraft
+  # This wrappper is a workaround for both xdg-open and dekstop entries being broken in snapcraft
   v2raya-browser-wrapper:
     plugin: nil
     override-build: |
