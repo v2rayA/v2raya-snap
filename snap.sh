@@ -29,7 +29,7 @@ for ARCH in ${architectures[@]}; do
 	wget "https://github.com/v2rayA/v2rayA/releases/download/v${VERSION}/installer_debian_${ARCH}_${VERSION}.deb" \
 	-O "$P_DIR/installer_debian_${ARCH}_${VERSION}.deb"
 	fi
-	snapcraft snap --use-lxd --output v2raya_${VERSION}_${ARCH}.snap
+	snapcraft snap --output v2raya_${VERSION}_${ARCH}.snap
 	mv -f snap/snapcraft.yaml.backup-arch snap/snapcraft.yaml
 done
 
