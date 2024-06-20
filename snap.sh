@@ -32,9 +32,3 @@ for ARCH in ${architectures[@]}; do
 	if [ $ARCH = "x64"]; then snap_arch = "amd64" else snap_arch = $ARCH fi
 	snapcraft snap --build-for $snap_arch --output v2raya_${VERSION}_${ARCH}.snap
 done
-
-# Should publish snap here, but it's a really good idea to smoke test it by hand before pushing to the stable chanell
-#snapcraft export-login snapcraft-credfile
-#export SNAPCRAFT_STORE_CREDENTIALS=$(cat snapcraft-credfile)
-#snapcraft login
-#snapcraft upload v2raya_${VERSION}_amd64.snap --release stable
