@@ -21,7 +21,7 @@ parts:
     plugin: nil
     override-build: |
       sudo bash install-release.sh --force
-      # This is a dirty hack to fix another dirty hack (v2ray-core being distributed via a script instead of .deb package)
+      # This is a dirty hack to fix another dirty hack (v2ray-core being distributed via a script instead of a .deb package)
       mkdir -p /root/parts/v2ray-core/install/usr/local/bin
       mkdir -p /root/parts/v2ray-core/install/usr/local/{share,etc}/v2ray
       cp /usr/local/bin/v2ray               /root/parts/v2ray-core/install/usr/local/bin/
