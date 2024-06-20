@@ -1,5 +1,5 @@
 name: v2raya
-base: core20
+base: core22
 version: '@VERSION@'
 summary: V2Ray Linux client, compatible with SS, SSR, Trojan, PingTunnel protocols.
 description: |
@@ -12,11 +12,11 @@ source-code: https://github.com/v2rayA/v2rayA.git
 website: https://v2raya.org/en/
 architectures:
   - build-on: [amd64]
-    run-on: [amd64]
+    build-for: [amd64]
   - build-on: [arm64]
-    run-on: [arm64]
+    build-for: [arm64]
   - build-on: [riscv64]
-    run-on: [riscv64]
+    build-for: [riscv64]
 
 grade: stable
 confinement: strict
@@ -35,17 +35,16 @@ parts:
       cp /usr/local/share/v2ray/geoip.dat   /root/parts/v2ray-core/install/usr/local/share/v2ray/
       cp /usr/local/share/v2ray/geosite.dat /root/parts/v2ray-core/install/usr/local/share/v2ray/
       cp /usr/local/etc/v2ray/config.json   /root/parts/v2ray-core/install/usr/local/etc/v2ray/
-    filesets:
-      v2ray-core-files: [
-      usr/local/bin/v2ray,
-      usr/local/share/v2ray/geoip.dat,
-      usr/local/share/v2ray/geosite.dat,
-      usr/local/etc/v2ray/config.json
-      ]
     stage:
-      - $v2ray-core-files
+      - usr/local/bin/v2ray
+      - usr/local/share/v2ray/geoip.dat
+      - usr/local/share/v2ray/geosite.dat
+      - usr/local/etc/v2ray/config.json
     prime:
-      - $v2ray-core-files
+      - usr/local/bin/v2ray
+      - usr/local/share/v2ray/geoip.dat
+      - usr/local/share/v2ray/geosite.dat
+      - usr/local/etc/v2ray/config.json
   v2raya: 
     source: installer_debian_@ARCH@_@VERSION@.deb
     source-type: deb
