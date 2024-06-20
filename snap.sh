@@ -29,6 +29,6 @@ for ARCH in ${architectures[@]}; do
 		-O "$P_DIR/installer_debian_${ARCH}_${VERSION}.deb"
 	fi
 	# Workaround around v2rayA and snapcraft using different names for the amd64/x64 architecture
-	if [ $ARCH = "x64"]; then snap_arch = "amd64" else snap_arch = $ARCH fi
-	snapcraft snap --build-for $snap_arch --output v2raya_${VERSION}_${ARCH}.snap
+	if [[ "$ARCH" == "x64" ]]; then export SNAPCRAFT_BUILD_FOR="amd64"; else export SNAPCRAFT_BUILD_FOR="$ARCH"; fi
+	snapcraft snap --output v2raya_${VERSION}_${ARCH}.snap
 done
