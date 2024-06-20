@@ -15,7 +15,7 @@ if [ "$(basename $P_DIR)" != "v2raya-snap" ]; then
 	echo -e "The script should be run from the v2raya-snap directory, instead of $PWD" >/dev/stderr
 	exit 2
 fi
-if [ -z "$(git --version)" ] || [ -z "$(wget --version)" ] || [ -z "$(snapcraft --version)" ] || [ -z $(yq --version) ]; then
+if [ -z "$(git --version)" ] || [ -z "$(wget --version)" ] || [ -z "$(snapcraft --version)" ] || [ -z "$(yq --version)" ]; then
        echo "git, wget, yq and snapcraft are required, but not installed"
 	exit 1
 fi
