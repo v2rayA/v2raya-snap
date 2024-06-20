@@ -1,0 +1,69 @@
+name: v2raya
+base: core20
+version: '2.2.5.5'
+summary: V2Ray Linux client, compatible with SS, SSR, Trojan, PingTunnel protocols.
+description: |
+  v2rayA is a V2Ray Linux client supporting global transparent proxy, compatible with SS, SSR, Trojan(trojan-go), PingTunnel protocols.
+  We are committed to providing the simplest operation and meet most needs.
+  Thanks to the advantages of Web GUI, you can use it on your local computer with your browser of choice.
+  Project：https://github.com/v2rayA/v2rayA
+license: AGPL-3.0-only
+source-code: https://github.com/v2rayA/v2rayA.git
+website: https://v2raya.org/en/
+grade: stable
+confinement: strict
+parts:
+  v2ray-core:
+    source: https://github.com/v2fly/fhs-install-v2ray.git
+    source-type: git
+    plugin: nil
+    override-build: |
+      sudo bash install-release.sh --force
+      # This is a dirty hack to fix another dirty hack (v2ray-core being distributed via a script instead of a .deb package)
+      mkdir -p /root/parts/v2ray-core/install/usr/local/bin
+      mkdir -p /root/parts/v2ray-core/install/usr/local/{share,etc}/v2ray
+      cp /usr/local/bin/v2ray               /root/parts/v2ray-core/install/usr/local/bin/
+      cp /usr/local/share/v2ray/geoip.dat   /root/parts/v2ray-core/install/usr/local/share/v2ray/
+      cp /usr/local/share/v2ray/geosite.dat /root/parts/v2ray-core/install/usr/local/share/v2ray/
+      cp /usr/local/etc/v2ray/config.json   /root/parts/v2ray-core/install/usr/local/etc/v2ray/
+    filesets:
+      v2ray-core-files: [usr/local/bin/v2ray, usr/local/share/v2ray/geoip.dat, usr/local/share/v2ray/geosite.dat,
+        usr/local/etc/v2ray/config.json]
+    stage:
+      - $v2ray-core-files
+    prime:
+      - $v2ray-core-files
+  v2raya:
+    source: installer_debian_x64_2.2.5.5.deb
+    source-type: deb
+    plugin: dump
+  v2raya-browser-wrapper:
+    plugin: nil
+    override-build: |
+      echo -e '#!/bin/bash\nxdg-open http://localhost:2017' > v2raya-browser-wrapper
+      chmod +x v2raya-browser-wrapper
+      cp v2raya-browser-wrapper /root/parts/v2raya-browser-wrapper/install/
+    stage:
+      - v2raya-browser-wrapper
+    prime:
+      - v2raya-browser-wrapper
+apps:
+  v2raya:
+    daemon: simple
+    command: usr/bin/v2raya --v2ray-bin $SNAP/usr/local/bin/v2ray
+    environment:
+      V2RAYA_LOG_FILE: $SNAP_DATA/log/v2raya-snap.log
+      V2RAYA_CONFIG: $SNAP_DATA/etc
+      V2RAYA_V2RAY_ASSETSDIR: $SNAP_DATA/geoip
+      V2RAYA_ADDRESS: 127.0.0.1:2017
+    restart-condition: on-failure
+    install-mode: enable
+    plugs:
+      - network
+      - network-bind
+      - firewall-control
+      - network-control
+  v2raya-browser-wrapper:
+    command: v2raya-browser-wrapper
+    plugs:
+      - desktop
