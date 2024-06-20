@@ -20,14 +20,16 @@ if [ -z "$(git --version)" ] || [ -z "$(wget --version)" ] || [ -z "$(snapcraft 
 	exit 1
 fi
 
-declare readonly architectures=("x64") # Add your architectures here
+declare readonly architectures=("x64 arm64 riscv64") # Add your architectures here
 for ARCH in ${architectures[@]}; do
 	yq -Y $".\"version\"=\"${VERSION}\" | .parts.v2raya.\"source\"=\"installer_debian_${ARCH}_${VERSION}.deb\"" snap/snapcraft.yaml.template > snap/snapcraft.yaml
 	if [ ! -e "installer_debian_${ARCH}_${VERSION}.deb" ]; then
 	wget "https://github.com/v2rayA/v2rayA/releases/download/v${VERSION}/installer_debian_${ARCH}_${VERSION}.deb" \
 	-O "$P_DIR/installer_debian_${ARCH}_${VERSION}.deb"
 	fi
-	snapcraft snap --output v2raya_${VERSION}_${ARCH}.snap
+	# Workaround around v2rayA and snapcraft using different names for the amd64/x64 architecture
+	if [ $ARCH = "x64"]; then snap_arch = "amd64" else snap_arch = $ARCH fi
+	snapcraft snap --build-for $snap_arch --output v2raya_${VERSION}_${ARCH}.snap
 done
 
 # Should publish snap here, but it's a really good idea to smoke test it by hand before pushing to the stable chanell

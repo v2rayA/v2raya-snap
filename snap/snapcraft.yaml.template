@@ -10,6 +10,13 @@ description: |
 license: AGPL-3.0-only
 source-code: https://github.com/v2rayA/v2rayA.git
 website: https://v2raya.org/en/
+architectures:
+  - build-on: [amd64]
+    run-on: [amd64]
+  - build-on: [arm64]
+    run-on: [arm64]
+  - build-on: [riscv64]
+    run-on: [riscv64]
 
 grade: stable
 confinement: strict
