@@ -22,10 +22,11 @@ fi
 
 declare readonly architectures=("x64 arm64 riscv64") # Add your architectures here
 for ARCH in ${architectures[@]}; do
-	yq -Y $".\"version\"=\"${VERSION}\" | .parts.v2raya.\"source\"=\"installer_debian_${ARCH}_${VERSION}.deb\"" snap/snapcraft.yaml.template > snap/snapcraft.yaml
+	yq -Y $".\"version\"=\"${VERSION}\" | .parts.v2raya.\"source\"=\"installer_debian_${ARCH}_${VERSION}.deb\"" \
+		snap/snapcraft.yaml.template > snap/snapcraft.yaml
 	if [ ! -e "installer_debian_${ARCH}_${VERSION}.deb" ]; then
 	wget "https://github.com/v2rayA/v2rayA/releases/download/v${VERSION}/installer_debian_${ARCH}_${VERSION}.deb" \
-	-O "$P_DIR/installer_debian_${ARCH}_${VERSION}.deb"
+		-O "$P_DIR/installer_debian_${ARCH}_${VERSION}.deb"
 	fi
 	# Workaround around v2rayA and snapcraft using different names for the amd64/x64 architecture
 	if [ $ARCH = "x64"]; then snap_arch = "amd64" else snap_arch = $ARCH fi
