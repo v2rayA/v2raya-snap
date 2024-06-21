@@ -20,6 +20,7 @@ if [ -z "$(git --version)" ] || [ -z "$(wget --version)" ] || [ -z "$(snapcraft 
 	exit 1
 fi
 
+export SNAPCRAFT_BUILD_ENVIRONMENT=multipass
 declare readonly architectures=("x64 arm64 riscv64") # Add your architectures here
 for ARCH in ${architectures[@]}; do
 	yq -Y $".\"version\"=\"${VERSION}\" | .parts.v2raya.\"source\"=\"installer_debian_${ARCH}_${VERSION}.deb\"" \
