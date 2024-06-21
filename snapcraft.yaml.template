@@ -23,7 +23,7 @@ confinement: strict
 
 parts:
   v2ray-core:
-    source: https://github.com/v2fly/v2ray-core/releases/download/latest/v2ray-linux-64.zip
+    source: https://github.com/v2fly/v2ray-core/releases/download/v5.16.1/v2ray-linux-64.zip
     source-type: zip
     plugin: dump
     organize:
