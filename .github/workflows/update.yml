@@ -14,8 +14,8 @@ jobs:
       - name: Install build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y jq yq wget git
-          sudo snap install multipass snapcraft
+          sudo apt-get install -y jq wget git
+          sudo snap install multipass snapcraft yq
 
       - name: Get Current Version
         run: |
