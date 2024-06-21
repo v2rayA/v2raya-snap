@@ -1,0 +1,41 @@
+name: Update v2rayA snap
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq yq wget git
+          sudo snap install multipass snapcraft
+
+      - name: Get Current Version
+        run: |
+          CURRENT_VERSION=$(yq -r '.version' snap/snapcraft.yaml)
+          echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_ENV
+
+      - name: Export latest v2rayA version
+        run: |
+          NEW_VERSION=$(curl -s https://api.github.com/repos/v2rayA/v2rayA/releases/latest | jq -r '.tag_name | sub("^v"; "")')
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+
+      - name: Build .snap files
+        if: ${{ env.CURRENT_VERSION != env.NEW_VERSION }}
+        run: snap.sh ${NEW_VERSION}
+
+      - name: Release the snap to Snapcraft
+        if: ${{ env.CURRENT_VERSION != env.NEW_VERSION }}
+        run: |
+          export $SNAPCRAFT_STORE_CREDENTIALS
+          snapcraft push --release beta ./v2raya_${NEW_VERSION}_x64.snap
+          snapcraft push --release beta ./v2raya_${NEW_VERSION}_arm64.snap
+          snapcraft push --release beta ./v2raya_${NEW_VERSION}_riscv64.snap
+
