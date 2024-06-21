@@ -15,7 +15,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y jq wget git
-          sudo snap install multipass snapcraft yq
+          sudo snap install yq
+          sudo snap install --classic multipass snapcraft
 
       - name: Get Current Version
         run: |
