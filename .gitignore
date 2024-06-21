@@ -2,5 +2,3 @@
 *.snap
 
 snapcraft-credfile
-snap/snapcraft.yaml
-snap/snapcraft.yml
