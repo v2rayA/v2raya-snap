@@ -38,14 +38,6 @@ jobs:
         if: ${{ env.CURRENT_VERSION != env.NEW_VERSION }}
         run: bash -x snap.sh ${NEW_VERSION}
 
-      - uses: EndBug/add-and-commit@v9
-        with:
-          add: 'snap/snapcraft.yaml'
-          fetch: true
-          message: 'GitHub Actions: Automatically update snapcraft.yaml to the latest version'
-          pathspec_error_handling: ignore
-          push: true
-
       - name: Release the snap to Snapcraft
         if: ${{ env.CURRENT_VERSION != env.NEW_VERSION }}
         env:
@@ -54,3 +46,11 @@ jobs:
           snapcraft push --release beta ./v2raya_${NEW_VERSION}_x64.snap
           #snapcraft push --release beta ./v2raya_${NEW_VERSION}_arm64.snap
           #snapcraft push --release beta ./v2raya_${NEW_VERSION}_riscv64.snap
+
+      - uses: EndBug/add-and-commit@v9
+        with:
+          add: 'snap/snapcraft.yaml'
+          fetch: true
+          message: 'GitHub Actions: Automatically update snapcraft.yaml to the latest version'
+          pathspec_error_handling: ignore
+          push: true
