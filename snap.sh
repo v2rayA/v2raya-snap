@@ -23,7 +23,7 @@ fi
 
 
 export SNAPCRAFT_BUILD_ENVIRONMENT=multipass
-declare readonly architectures=("x64") # Add your architectures here
+declare readonly architectures=("x64 arm64 riscv64") # Add your architectures here
 for ARCH in ${architectures[@]}; do
 	# Workaround around v2rayA and v2ray-core using different architecture names
 	if [[ $ARCH == "x64" ]]; then
