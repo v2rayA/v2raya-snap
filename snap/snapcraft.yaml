@@ -1,6 +1,6 @@
 name: v2raya
 base: core22
-version: '2.2.5.5'
+version: '2.2.5.6'
 summary: V2Ray Linux client, compatible with SS, SSR, Trojan, PingTunnel protocols.
 description: |
   v2rayA is a V2Ray Linux client supporting global transparent proxy, compatible with SS, SSR, Trojan(trojan-go), PingTunnel protocols.
@@ -13,26 +13,22 @@ website: https://v2raya.org/en/
 architectures:
   - build-on: [amd64]
     build-for: [amd64]
-  - build-on: [arm64]
+  - build-on: [amd64]
     build-for: [arm64]
-  - build-on: [riscv64]
+  - build-on: [amd64]
     build-for: [riscv64]
 grade: stable
 confinement: strict
 parts:
   v2ray-core:
-    source: https://github.com/v2fly/fhs-install-v2ray.git
-    source-type: git
-    plugin: nil
-    override-build: |
-      sudo bash install-release.sh --force
-      # This is a dirty hack to fix another dirty hack (v2ray-core being distributed via a script instead of a .deb package)
-      mkdir -p /root/parts/v2ray-core/install/usr/local/bin
-      mkdir -p /root/parts/v2ray-core/install/usr/local/{share,etc}/v2ray
-      cp /usr/local/bin/v2ray               /root/parts/v2ray-core/install/usr/local/bin/
-      cp /usr/local/share/v2ray/geoip.dat   /root/parts/v2ray-core/install/usr/local/share/v2ray/
-      cp /usr/local/share/v2ray/geosite.dat /root/parts/v2ray-core/install/usr/local/share/v2ray/
-      cp /usr/local/etc/v2ray/config.json   /root/parts/v2ray-core/install/usr/local/etc/v2ray/
+    source: https://github.com/v2fly/v2ray-core/releases/download/v5.16.1/v2ray-linux-64.zip
+    source-type: zip
+    plugin: dump
+    organize:
+      v2ray: usr/local/bin/v2ray
+      geoip.dat: usr/local/share/v2ray/geoip.dat
+      geosite.dat: usr/local/share/v2ray/geosite.dat
+      config.json: usr/local/etc/v2ray/config.json
     stage:
       - usr/local/bin/v2ray
       - usr/local/share/v2ray/geoip.dat
@@ -44,7 +40,7 @@ parts:
       - usr/local/share/v2ray/geosite.dat
       - usr/local/etc/v2ray/config.json
   v2raya:
-    source: installer_debian_x64_2.2.5.5.deb
+    source: installer_debian_x64_2.2.5.6.deb
     source-type: deb
     plugin: dump
   v2raya-browser-wrapper:
