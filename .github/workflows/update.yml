@@ -19,10 +19,10 @@ jobs:
       - name: Install build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y jq wget git
+          sudo apt-get install -y jq wget git python3-yaml
           sudo snap install multipass
-          sudo snap install yq --revision 641 # Install yq 3.2.2 in order to be fully compatible with Debian
           sudo snap install --classic snapcraft
+          sudo python3 -m pip install --break-system-packages yq==3.2.3
 
       - name: Get Current Version
         run: |
