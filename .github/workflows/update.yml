@@ -44,5 +44,5 @@ jobs:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
         run: |
           snapcraft push --release beta ./v2raya_${NEW_VERSION}_x64.snap
-          snapcraft push --release beta ./v2raya_${NEW_VERSION}_arm64.snap
-          snapcraft push --release beta ./v2raya_${NEW_VERSION}_riscv64.snap
+          #snapcraft push --release beta ./v2raya_${NEW_VERSION}_arm64.snap
+          #snapcraft push --release beta ./v2raya_${NEW_VERSION}_riscv64.snap
