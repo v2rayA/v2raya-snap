@@ -20,7 +20,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y jq wget git
-          sudo snap install yq multipass
+          sudo snap install multipass
+          sudo snap install yq --revision 641 # Install yq 3.2.2 in order to be fully compatible with Debian
           sudo snap install --classic snapcraft
 
       - name: Get Current Version
