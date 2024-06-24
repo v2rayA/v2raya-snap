@@ -47,5 +47,7 @@ for ARCH in ${architectures[@]}; do
 
 	# Workaround around v2rayA and snapcraft using different names for the amd64/x64 architecture
 	if [[ "$ARCH" == "x64" ]]; then export SNAPCRAFT_BUILD_FOR="amd64"; else export SNAPCRAFT_BUILD_FOR="$ARCH"; fi
-	snapcraft pack --build-for $SNAPCRAFT_BUILD_FOR --output v2raya_${VERSION}_${ARCH}.snap
+	cat snap/snapcraft.yaml
+	snapcraft pack --build-for $SNAPCRAFT_BUILD_FOR --output v2raya_${VERSION}_${ARCH}.snap \
+		|| cat /home/runner/.local/state/snapcraft/log/snapcraft-*.log
 done
