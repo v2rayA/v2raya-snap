@@ -40,9 +40,9 @@ jobs:
 
       - name: Release the snap to Snapcraft
         if: ${{ env.CURRENT_VERSION != env.NEW_VERSION }}
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
         run: |
-          export $SNAPCRAFT_STORE_CREDENTIALS
           snapcraft push --release beta ./v2raya_${NEW_VERSION}_x64.snap
           snapcraft push --release beta ./v2raya_${NEW_VERSION}_arm64.snap
           snapcraft push --release beta ./v2raya_${NEW_VERSION}_riscv64.snap
-
