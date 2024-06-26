@@ -49,5 +49,5 @@ for ARCH in ${architectures[@]}; do
 	if [[ "$ARCH" == "x64" ]]; then export SNAPCRAFT_BUILD_FOR="amd64"; else export SNAPCRAFT_BUILD_FOR="$ARCH"; fi
 	cat snap/snapcraft.yaml
 	sudo -E snapcraft pack --build-for $SNAPCRAFT_BUILD_FOR --output v2raya_${VERSION}_${ARCH}.snap \
-		|| cat /home/runner/.local/state/snapcraft/log/snapcraft-*.log
+		|| cat ~/.local/state/snapcraft/log/snapcraft-*.log
 done
