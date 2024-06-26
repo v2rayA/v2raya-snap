@@ -1,9 +1,6 @@
 name: Update v2rayA snap
 on: 
   workflow_dispatch:
-  push:
-    branches:
-      - main
   schedule:
     - cron: '00 16 * * *'
 
