@@ -21,6 +21,8 @@ if [ -z "$(git --version)" ] || [ -z "$(wget --version)" ] || [ -z "$(snapcraft 
 	exit 1
 fi
 
+sudo snap run multipass set local.passphrase=123
+snap run multipass authenticate 123
 
 export SNAPCRAFT_BUILD_ENVIRONMENT=multipass
 declare readonly architectures=("arm64 riscv64 x64") # Add your architectures here
@@ -48,6 +50,6 @@ for ARCH in ${architectures[@]}; do
 	# Workaround around v2rayA and snapcraft using different names for the amd64/x64 architecture
 	if [[ "$ARCH" == "x64" ]]; then export SNAPCRAFT_BUILD_FOR="amd64"; else export SNAPCRAFT_BUILD_FOR="$ARCH"; fi
 	cat snap/snapcraft.yaml
-	sudo -E snap run snapcraft pack --build-for $SNAPCRAFT_BUILD_FOR --output v2raya_${VERSION}_${ARCH}.snap --debug \
+	snap run snapcraft pack --build-for $SNAPCRAFT_BUILD_FOR --output v2raya_${VERSION}_${ARCH}.snap --debug \
 		|| cat ~/.local/state/snapcraft/log/snapcraft-*.log
 done
