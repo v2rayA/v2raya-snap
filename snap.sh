@@ -41,7 +41,7 @@ for ARCH in ${architectures[@]}; do
 		v2ray_core_url="https://github.com/v2fly/v2ray-core/releases/download/v5.16.1/v2ray-linux-64.zip"
 
 	if [ ! -e "installer_debian_${ARCH}_${VERSION}.deb" ]; then
-	wget "https://github.com/v2rayA/v2rayA/releases/download/v${VERSION}/installer_debian_${ARCH}_${VERSION}.deb" \
+	wget --quiet "https://github.com/v2rayA/v2rayA/releases/download/v${VERSION}/installer_debian_${ARCH}_${VERSION}.deb" \
 		-O "$P_DIR/installer_debian_${ARCH}_${VERSION}.deb"
 	fi
 
