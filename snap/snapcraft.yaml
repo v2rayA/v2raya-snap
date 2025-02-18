@@ -44,11 +44,9 @@ parts:
     source-type: deb
     plugin: dump
   v2raya-browser-wrapper:
-    plugin: nil
-    override-build: |
-      echo -e '#!/bin/bash\nxdg-open http://localhost:2017' > v2raya-browser-wrapper
-      chmod +x v2raya-browser-wrapper
-      cp v2raya-browser-wrapper /root/parts/v2raya-browser-wrapper/install/
+    plugin: dump
+    source: v2raya-browser-wrapper
+    source-type: local
     stage:
       - v2raya-browser-wrapper
     prime:
