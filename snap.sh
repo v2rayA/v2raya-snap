@@ -16,12 +16,13 @@ if [ "$(basename $P_DIR)" != "v2raya-snap" ]; then
 	echo -e "The script should be run from the v2raya-snap directory, not from $PWD" >/dev/stderr
 	exit 2
 fi
-if [ -z "$(git --version)" ] || [ -z "$(wget --version)" ] || [ -z "$(snapcraft --version)" ] || [ -z "$(yq --version)" ]; then
-       echo "git, wget, yq and snapcraft are required, but not installed"
+if [ -z "$(git --version)" ] || [ -z "$(wget --version)" ] || [ -z "$(snapcraft --version)" ] || [ -z "$(yq --version)" ] || [ -z "$(lxd --version)" ]; then
+       echo "git, wget, yq, snapcraft and lxd are required, but not installed"
 	exit 1
 fi
 
 export SNAPCRAFT_BUILD_ENVIRONMENT=lxd
+exec newgrp lxd
 declare readonly architectures=("arm64 riscv64 x64") # Add your architectures here
 for ARCH in ${architectures[@]}; do
 	# Workaround around v2rayA and v2ray-core using different architecture names

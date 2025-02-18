@@ -35,9 +35,7 @@ jobs:
 
       - name: Build .snap files
         if: ${{ env.CURRENT_VERSION != env.NEW_VERSION }}
-        run: |
-          newgrp lxd
-          bash -x snap.sh ${NEW_VERSION}
+        run: bash -x snap.sh ${NEW_VERSION}
 
       - name: Release the snap to Snapcraft
         if: ${{ env.CURRENT_VERSION != env.NEW_VERSION }}
