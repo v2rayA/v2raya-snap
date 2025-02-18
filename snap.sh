@@ -22,7 +22,6 @@ if [ -z "$(git --version)" ] || [ -z "$(wget --version)" ] || [ -z "$(snapcraft 
 fi
 
 export SNAPCRAFT_BUILD_ENVIRONMENT=lxd
-exec newgrp lxd
 declare readonly architectures=("arm64 riscv64 x64") # Add your architectures here
 for ARCH in ${architectures[@]}; do
 	# Workaround around v2rayA and v2ray-core using different architecture names
