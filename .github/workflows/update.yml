@@ -13,7 +13,7 @@ jobs:
         with:
           ref: main
 
-      - name: Install build dependencies
+      - name: Install and configure the build dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y jq wget git python3-yaml
@@ -21,6 +21,7 @@ jobs:
           sudo snap install --classic --channel=8.x/stable snapcraft
           python3 -m pip install yq==3.2.3
           sudo lxd init --auto
+          sudo gpasswd -a $USER deleteme
 
       - name: Get Current Version
         run: |
@@ -34,7 +35,9 @@ jobs:
 
       - name: Build .snap files
         if: ${{ env.CURRENT_VERSION != env.NEW_VERSION }}
-        run: bash -x snap.sh ${NEW_VERSION}
+        run: |
+          newgrp lxd
+          bash -x snap.sh ${NEW_VERSION}
 
       - name: Release the snap to Snapcraft
         if: ${{ env.CURRENT_VERSION != env.NEW_VERSION }}
