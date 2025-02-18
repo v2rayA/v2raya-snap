@@ -1,6 +1,6 @@
 name: v2raya
 base: core22
-version: '2.2.5.8'
+version: '2.2.6.6'
 summary: V2Ray Linux client, compatible with SS, SSR, Trojan, PingTunnel protocols.
 description: |
   v2rayA is a V2Ray client supporting global transparent proxy on Linux, it is compatible with SS, SSR, Trojan(trojan-go), Tuic and Juicity protocols.
