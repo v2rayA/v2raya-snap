@@ -15,8 +15,6 @@ jobs:
 
       - name: Install and configure the build dependencies
         run: |
-          sudo iptables -F FORWARD
-          sudo sysctl -w net.ipv4.conf.all.forwarding=1
           sudo apt-get update
           sudo apt-get purge -y docker-ce docker-ce-cli
           sudo apt-get install -y jq wget git python3-yaml
@@ -26,6 +24,7 @@ jobs:
           sudo python3 -m pip install yq==3.2.3
           sudo lxd init --auto
           sudo gpasswd -a $USER lxd
+          sudo sysctl -w net.ipv4.conf.all.forwarding=1
 
       - name: Get Current Version
         run: |
@@ -40,8 +39,10 @@ jobs:
       - name: Build .snap files
         if: ${{ env.CURRENT_VERSION != env.NEW_VERSION }}
         run: |
-          sudo iptables -nvL FORWARD
-          sudo ufw --version
+          systemctl status ufw
+          sudo ufw allow in on lxdbr0
+          sudo ufw route allow in on lxdbr0
+          sudo ufw route allow out on lxdbr0
           ip a
           sysctl -a
           sudo bash -x snap.sh ${NEW_VERSION}
