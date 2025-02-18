@@ -16,7 +16,7 @@ jobs:
       - name: Install and configure the build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get purge -y docker-ce docker-ce-cli
+          sudo apt-get purge -y docker-ce docker-ce-cli ufw
           sudo apt-get install -y jq wget git python3-yaml
           sudo snap install lxd
           sudo snap install --classic --channel=8.x/stable snapcraft
@@ -25,6 +25,7 @@ jobs:
           sudo lxd init --auto
           sudo gpasswd -a $USER lxd
           sudo sysctl -w net.ipv4.conf.all.forwarding=1
+          sudo nft flush ruleset
 
       - name: Get Current Version
         run: |
@@ -40,11 +41,9 @@ jobs:
         if: ${{ env.CURRENT_VERSION != env.NEW_VERSION }}
         run: |
           systemctl status ufw
-          sudo ufw allow in on lxdbr0
-          sudo ufw route allow in on lxdbr0
-          sudo ufw route allow out on lxdbr0
+          lxc network set lxdbr0 ipv4.firewall false
+          nft list ruleset
           ip a
-          sysctl -a
           sudo bash -x snap.sh ${NEW_VERSION}
 
       - name: Release the snap to Snapcraft
