@@ -2,7 +2,7 @@ name: Update v2rayA snap
 on: 
   workflow_dispatch:
   schedule:
-    - cron: '30 */4 * * *'
+    - cron: '30 08 * * *'
 
 jobs:
   build:
