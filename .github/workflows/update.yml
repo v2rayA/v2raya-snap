@@ -20,7 +20,7 @@ jobs:
           sudo snap install lxd
           sudo snap install --classic --channel=8.x/stable snapcraft
           sudo snap remove yq
-          sudo python3 -m pip install --break-system-packages yq==3.2.3
+          sudo python3 -m pip install yq==3.2.3
           sudo lxd init --auto
           sudo gpasswd -a $USER lxd
 
