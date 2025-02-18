@@ -52,7 +52,7 @@ for ARCH in ${architectures[@]}; do
 		echo "WARNING: Using destructive mode!!"
 		sleep 5
 		unset SNAPCRAFT_BUILD_ENVIRONMENT
-		snap run snapcraft pack ---destructive-mode --build-for $SNAPCRAFT_BUILD_FOR --output v2raya_${VERSION}_${ARCH}.snap --debug \
+		snap run snapcraft pack --destructive-mode --build-for $SNAPCRAFT_BUILD_FOR --output v2raya_${VERSION}_${ARCH}.snap --debug \
 		|| cat ~/.local/state/snapcraft/log/snapcraft-*.log
 	else
 		snap run snapcraft pack --build-for $SNAPCRAFT_BUILD_FOR --output v2raya_${VERSION}_${ARCH}.snap --debug \
