@@ -36,7 +36,7 @@ jobs:
         if: ${{ env.CURRENT_VERSION != env.NEW_VERSION }}
         run: |
           env
-          sudo bash -x snap.sh ${NEW_VERSION}
+          sudo -E bash -x snap.sh ${NEW_VERSION}
 
       - name: Release the snap to Snapcraft
         if: ${{ env.CURRENT_VERSION != env.NEW_VERSION }}
