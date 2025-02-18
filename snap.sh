@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+set -e
 
 # Parse arguments
 if [ -z "$1" ] || [ $# -gt 1 ]; then
@@ -48,7 +48,7 @@ for ARCH in ${architectures[@]}; do
 	if [[ "$ARCH" == "x64" ]]; then export SNAPCRAFT_BUILD_FOR="amd64"; else export SNAPCRAFT_BUILD_FOR="$ARCH"; fi
 	cat snap/snapcraft.yaml
 	# Use destructive mode on GitHub Runners due to issues with LXD
-	if [ "$(whoami)" = "runner" ]; then
+	if [[ "$GITHUB_ACTIONS" == "true" ]]; then
 		echo "WARNING: Using destructive mode!!"
 		sleep 5
 		unset SNAPCRAFT_BUILD_ENVIRONMENT
