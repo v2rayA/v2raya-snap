@@ -16,7 +16,7 @@ if [ "$(basename $P_DIR)" != "v2raya-snap" ]; then
 	echo -e "The script should be run from the v2raya-snap directory, not from $PWD" >/dev/stderr
 	exit 2
 fi
-if [ -z "$(git --version)" ] || [ -z "$(wget --version)" ] || [ -z "$(snapcraft --version)" ] || [ -z "$(yq --version)" ] || [ -z "$(lxd --version)" ]; then
+if [ -z "$(git --version)" ] || [ -z "$(wget --version)" ] || [ -z "$(snapcraft --version)" ] || [ -z "$(python3 -m yq --version)" ] || [ -z "$(lxd --version)" ]; then
        echo "git, wget, yq, snapcraft and lxd are required, but not installed"
 	exit 1
 fi
@@ -35,7 +35,7 @@ for ARCH in ${architectures[@]}; do
 	# Download the latest version of v2ray-core
 	v2ray_core_url=$(curl -sH "Accept: application/vnd.github.v3+json" https://api.github.com/repos/v2fly/v2ray-core/releases/latest |\
 		jq -r $".assets[].browser_download_url | select(test(\"v2ray-linux-${v2ray_core_arch}\\\.zip$\"))")
-	yq -Y $".version=\"${VERSION}\" | .parts.v2raya.source=\"installer_debian_${ARCH}_${VERSION}.deb\" | .parts.\"v2ray-core\".source=\"${v2ray_core_url}\"" \
+	python3 -m yq -Y $".version=\"${VERSION}\" | .parts.v2raya.source=\"installer_debian_${ARCH}_${VERSION}.deb\" | .parts.\"v2ray-core\".source=\"${v2ray_core_url}\"" \
 		snapcraft.yaml.template > snap/snapcraft.yaml ||\
 		v2ray_core_url="https://github.com/v2fly/v2ray-core/releases/download/v5.16.1/v2ray-linux-64.zip"
 
