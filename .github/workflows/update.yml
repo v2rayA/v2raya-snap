@@ -17,9 +17,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y jq wget git python3-yaml
-          sudo snap install multipass
+          sudo snap install lxd
           sudo snap install --classic --channel=8.x/stable snapcraft
           python3 -m pip install yq==3.2.3
+          lxd init --auto
 
       - name: Get Current Version
         run: |

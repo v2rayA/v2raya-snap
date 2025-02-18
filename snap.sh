@@ -21,10 +21,7 @@ if [ -z "$(git --version)" ] || [ -z "$(wget --version)" ] || [ -z "$(snapcraft 
 	exit 1
 fi
 
-sudo snap run multipass set local.passphrase=123
-snap run multipass authenticate 123
-
-export SNAPCRAFT_BUILD_ENVIRONMENT=multipass
+export SNAPCRAFT_BUILD_ENVIRONMENT=lxd
 declare readonly architectures=("arm64 riscv64 x64") # Add your architectures here
 for ARCH in ${architectures[@]}; do
 	# Workaround around v2rayA and v2ray-core using different architecture names
