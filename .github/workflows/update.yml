@@ -21,7 +21,7 @@ jobs:
           sudo snap install --classic --channel=8.x/stable snapcraft
           python3 -m pip install yq==3.2.3
           sudo lxd init --auto
-          sudo gpasswd -a $USER deleteme
+          sudo gpasswd -a $USER lxd
 
       - name: Get Current Version
         run: |
