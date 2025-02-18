@@ -16,7 +16,6 @@ jobs:
       - name: Install and configure the build dependencies
         run: |
           sudo apt-get update
-          sudo apt list -i "*docker*"
           sudo apt-get install -y jq wget git python3-yaml
           sudo snap install lxd
           sudo snap install --classic --channel=8.x/stable snapcraft
