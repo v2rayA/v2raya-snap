@@ -19,7 +19,7 @@ jobs:
           sudo apt-get install -y jq wget git python3-yaml
           sudo snap install lxd
           sudo snap install --classic --channel=8.x/stable snapcraft
-          sudo apt-get remove yq
+          sudo snap remove yq
           sudo python3 -m pip install --break-system-packages yq==3.2.3
           sudo lxd init --auto
           sudo gpasswd -a $USER lxd
