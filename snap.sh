@@ -48,7 +48,9 @@ for ARCH in ${architectures[@]}; do
 	if [[ "$ARCH" == "x64" ]]; then export SNAPCRAFT_BUILD_FOR="amd64"; else export SNAPCRAFT_BUILD_FOR="$ARCH"; fi
 	cat snap/snapcraft.yaml
 	# Use destructive mode on GitHub Runners due to issues with LXD
-	if [ ! -z $GITHUB_WORKSPACE ]; then
+	if [ "$(whoami)" = "runner" ]; then
+		echo "WARNING: Using destructive mode!!"
+		sleep 5
 		unset SNAPCRAFT_BUILD_ENVIRONMENT
 		snap run snapcraft pack ---destructive-mode --build-for $SNAPCRAFT_BUILD_FOR --output v2raya_${VERSION}_${ARCH}.snap --debug \
 		|| cat ~/.local/state/snapcraft/log/snapcraft-*.log
