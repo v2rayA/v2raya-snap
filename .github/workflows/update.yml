@@ -44,6 +44,9 @@ jobs:
           lxc network set lxdbr0 ipv4.firewall false
           nft list ruleset
           ip a
+          snap start lxd.activate
+          snap start lxd.daemon
+          snap start lxd.user-daemon
           sudo bash -x snap.sh ${NEW_VERSION}
 
       - name: Release the snap to Snapcraft
