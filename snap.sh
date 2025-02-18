@@ -16,8 +16,8 @@ if [ "$(basename $P_DIR)" != "v2raya-snap" ]; then
 	echo -e "The script should be run from the v2raya-snap directory, not from $PWD" >/dev/stderr
 	exit 2
 fi
-if [ -z "$(git --version)" ] || [ -z "$(wget --version)" ] || [ -z "$(snapcraft --version)" ] || [ -z "$(python3 -m yq --version)" ] || [ -z "$(lxd --version)" ]; then
-       echo "git, wget, yq, snapcraft and lxd are required, but not installed"
+if [ -z "$(git --version)" ] || [ -z "$(wget --version)" ] || [ -z "$(snapcraft --version)" ] || [ -z "$(python3 -m yq --version)" ]; then
+       echo "git, wget, yq, and snapcraft are required, but not installed"
 	exit 1
 fi
 
@@ -47,6 +47,13 @@ for ARCH in ${architectures[@]}; do
 	# Workaround around v2rayA and snapcraft using different names for the amd64/x64 architecture
 	if [[ "$ARCH" == "x64" ]]; then export SNAPCRAFT_BUILD_FOR="amd64"; else export SNAPCRAFT_BUILD_FOR="$ARCH"; fi
 	cat snap/snapcraft.yaml
-	snap run snapcraft pack --build-for $SNAPCRAFT_BUILD_FOR --output v2raya_${VERSION}_${ARCH}.snap --debug \
+	# Use destructive mode on GitHub Runners due to issues with LXD
+	if [ ! -z $GITHUB_WORKSPACE ]; then
+		unset SNAPCRAFT_BUILD_ENVIRONMENT
+		snap run snapcraft pack ---destructive-mode --build-for $SNAPCRAFT_BUILD_FOR --output v2raya_${VERSION}_${ARCH}.snap --debug \
 		|| cat ~/.local/state/snapcraft/log/snapcraft-*.log
+	else
+		snap run snapcraft pack --build-for $SNAPCRAFT_BUILD_FOR --output v2raya_${VERSION}_${ARCH}.snap --debug \
+		|| cat ~/.local/state/snapcraft/log/snapcraft-*.log
+	fi
 done

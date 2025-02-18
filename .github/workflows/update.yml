@@ -16,14 +16,9 @@ jobs:
       - name: Install and configure the build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get purge -y docker-ce docker-ce-cli ufw
           sudo apt-get install -y jq wget git python3-yaml
-          sudo snap install lxd
           sudo snap install --classic --channel=8.x/stable snapcraft
-          sudo snap remove yq
           sudo python3 -m pip install yq==3.2.3
-          sudo lxd init --auto
-          sudo gpasswd -a $USER lxd
           sudo sysctl -w net.ipv4.conf.all.forwarding=1
           sudo nft flush ruleset
 
@@ -40,13 +35,6 @@ jobs:
       - name: Build .snap files
         if: ${{ env.CURRENT_VERSION != env.NEW_VERSION }}
         run: |
-          systemctl status ufw
-          lxc network set lxdbr0 ipv4.firewall false
-          nft list ruleset
-          ip a
-          snap start lxd.activate
-          snap start lxd.daemon
-          snap start lxd.user-daemon
           sudo bash -x snap.sh ${NEW_VERSION}
 
       - name: Release the snap to Snapcraft
