@@ -20,7 +20,7 @@ jobs:
           sudo snap install lxd
           sudo snap install --classic --channel=8.x/stable snapcraft
           python3 -m pip install yq==3.2.3
-          lxd init --auto
+          sudo lxd init --auto
 
       - name: Get Current Version
         run: |
