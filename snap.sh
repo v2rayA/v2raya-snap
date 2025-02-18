@@ -53,6 +53,8 @@ for ARCH in ${architectures[@]}; do
 		sleep 5
 		unset SNAPCRAFT_BUILD_ENVIRONMENT
 		mkdir --parent /root/parts/v2raya-browser-wrapper/install/
+		mkdir --parent /home/runner/work/v2raya-snap/v2raya-snap/parts/v2raya-browser-wrapper/install/
+		mkdir --parent /home/runner/work/v2raya-snap/v2raya-snap/stage/
 		snap run snapcraft pack --destructive-mode --build-for $SNAPCRAFT_BUILD_FOR --output v2raya_${VERSION}_${ARCH}.snap --debug \
 		|| cat ~/.local/state/snapcraft/log/snapcraft-*.log
 	else
