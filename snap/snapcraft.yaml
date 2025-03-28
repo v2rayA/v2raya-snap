@@ -1,6 +1,6 @@
 name: v2raya
 base: core22
-version: '2.2.6.6'
+version: '2.2.6.7'
 summary: V2Ray Linux client, compatible with SS, SSR, Trojan, PingTunnel protocols.
 description: |
   v2rayA is a V2Ray client supporting global transparent proxy on Linux, it is compatible with SS, SSR, Trojan(trojan-go), Tuic and Juicity protocols.
@@ -40,7 +40,7 @@ parts:
       - usr/local/share/v2ray/geosite.dat
       - usr/local/etc/v2ray/config.json
   v2raya:
-    source: installer_debian_x64_2.2.6.6.deb
+    source: installer_debian_x64_2.2.6.7.deb
     source-type: deb
     plugin: dump
   v2raya-browser-wrapper:
