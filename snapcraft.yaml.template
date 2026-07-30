@@ -1,5 +1,5 @@
 name: v2raya
-base: core22
+base: core24
 version: '@VERSION@'
 summary: V2Ray Linux client, compatible with SS, SSR, Trojan, PingTunnel protocols.
 description: |
