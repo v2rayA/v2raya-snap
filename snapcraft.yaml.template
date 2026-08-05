@@ -1,5 +1,5 @@
 name: v2raya
-base: core22
+base: core24
 version: '@VERSION@'
 summary: V2Ray Linux client, compatible with SS, SSR, Trojan, PingTunnel protocols.
 description: |
@@ -10,13 +10,16 @@ description: |
 license: AGPL-3.0-only
 source-code: https://github.com/v2rayA/v2rayA.git
 website: https://v2raya.org/en/
-architectures:
-  - build-on: [amd64]
-    build-for: [amd64]
-  - build-on: [amd64]
-    build-for: [arm64]
-  - build-on: [amd64]
-    build-for: [riscv64]
+platforms:
+  amd64:
+    build-on: amd64
+    build-for: amd64
+  arm64:
+    build-on: amd64
+    build-for: arm64
+  riscv64:
+    build-on: amd64
+    build-for: riscv64
 
 grade: stable
 confinement: strict

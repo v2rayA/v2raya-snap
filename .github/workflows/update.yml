@@ -6,10 +6,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: main
 
@@ -17,7 +17,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y jq wget git python3-yaml
-          sudo snap install --classic --channel=8.x/stable snapcraft
+          sudo snap install --classic  snapcraft
           sudo python3 -m pip install yq==3.2.3
           sudo sysctl -w net.ipv4.conf.all.forwarding=1
           sudo nft flush ruleset
@@ -42,9 +42,9 @@ jobs:
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
         run: |
-          snapcraft push --release beta,stable ./v2raya_${NEW_VERSION}_x64.snap
-          snapcraft push --release beta,stable ./v2raya_${NEW_VERSION}_arm64.snap
-          snapcraft push --release beta,stable ./v2raya_${NEW_VERSION}_riscv64.snap
+          snapcraft upload --release beta,stable ./v2raya_${NEW_VERSION}_x64.snap
+          snapcraft upload --release beta,stable ./v2raya_${NEW_VERSION}_arm64.snap
+          snapcraft upload --release beta,stable ./v2raya_${NEW_VERSION}_riscv64.snap
 
       - uses: EndBug/add-and-commit@v9
         with:
