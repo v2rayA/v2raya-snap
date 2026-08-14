@@ -36,11 +36,7 @@ declare readonly architectures=("arm64 riscv64 x64")   # add more if needed
 
 for ARCH in ${architectures[@]}; do
     # v2rayA release uses the same arch names as we do, except for x64 (it stays x64)
-    if [[ "$ARCH" == "x64" ]]; then
-        v2raya_arch="x64"
-    else
-        v2raya_arch="$ARCH"
-    fi
+    v2raya_arch="$ARCH"
 
 
     # Download the v2raya_core binary (the actual v2ray executable)  from v2rayA's own release assets.
@@ -83,9 +79,6 @@ for ARCH in ${architectures[@]}; do
         sleep 5
         unset SNAPCRAFT_BUILD_ENVIRONMENT
         snap run snapcraft pack --destructive-mode --build-for $SNAPCRAFT_BUILD_FOR --output v2raya_${VERSION}_${ARCH}.snap --debug \
-        || cat ~/.local/state/snapcraft/log/snapcraft-*.log
     else
         snap run snapcraft pack --build-for $SNAPCRAFT_BUILD_FOR --output v2raya_${VERSION}_${ARCH}.snap --debug \
-        || cat ~/.local/state/snapcraft/log/snapcraft-*.log
-    fi
 done
