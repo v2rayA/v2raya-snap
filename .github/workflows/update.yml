@@ -46,7 +46,7 @@ jobs:
           snapcraft upload --release beta,stable ./v2raya_${NEW_VERSION}_arm64.snap
           snapcraft upload --release beta,stable ./v2raya_${NEW_VERSION}_riscv64.snap
 
-      - uses: EndBug/add-and-commit@v9
+      - uses: EndBug/add-and-commit@v10
         with:
           add: 'snap/snapcraft.yaml'
           fetch: true
