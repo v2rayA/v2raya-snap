@@ -70,15 +70,4 @@ for ARCH in ${architectures[@]}; do
     else
         export SNAPCRAFT_BUILD_FOR="$ARCH"
     fi
-
-    cat snap/snapcraft.yaml
-
-    # Build with destructive mode on GitHub Actions (LXD often misbehaves there)
-    if [[ "$GITHUB_ACTIONS" == "true" ]]; then
-        echo "WARNING: Using destructive mode!!"
-        sleep 5
-        unset SNAPCRAFT_BUILD_ENVIRONMENT
-        snap run snapcraft pack --destructive-mode --build-for $SNAPCRAFT_BUILD_FOR --output v2raya_${VERSION}_${ARCH}.snap --debug \
-    else
-        snap run snapcraft pack --build-for $SNAPCRAFT_BUILD_FOR --output v2raya_${VERSION}_${ARCH}.snap --debug \
 done
