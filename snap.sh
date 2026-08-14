@@ -38,7 +38,6 @@ for ARCH in ${architectures[@]}; do
     # v2rayA release uses the same arch names as we do, except for x64 (it stays x64)
     v2raya_arch="$ARCH"
 
-
     # Download the v2raya_core binary (the actual v2ray executable)  from v2rayA's own release assets.
 	
     v2raya_core_url="https://github.com/v2rayA/v2rayA/releases/download/v${VERSION}/v2raya_core_linux_${v2raya_arch}_${VERSION}"
@@ -70,4 +69,21 @@ for ARCH in ${architectures[@]}; do
     else
         export SNAPCRAFT_BUILD_FOR="$ARCH"
     fi
+	
+	cat snap/snapcraft.yaml
+	
+	# Workaround around v2rayA and snapcraft using different names for the amd64/x64 architecture
+	if [[ "$ARCH" == "x64" ]]; then export SNAPCRAFT_BUILD_FOR="amd64"; else export SNAPCRAFT_BUILD_FOR="$ARCH"; fi
+	cat snap/snapcraft.yaml
+	# Use destructive mode on GitHub Runners due to issues with LXD
+	if [[ "$GITHUB_ACTIONS" == "true" ]]; then
+		echo "WARNING: Using destructive mode!!"
+		sleep 5
+		unset SNAPCRAFT_BUILD_ENVIRONMENT
+		snap run snapcraft pack --destructive-mode --build-for $SNAPCRAFT_BUILD_FOR --output v2raya_${VERSION}_${ARCH}.snap --debug \
+		|| cat ~/.local/state/snapcraft/log/snapcraft-*.log
+	else
+		snap run snapcraft pack --build-for $SNAPCRAFT_BUILD_FOR --output v2raya_${VERSION}_${ARCH}.snap --debug \
+		|| cat ~/.local/state/snapcraft/log/snapcraft-*.log
+	fi
 done
