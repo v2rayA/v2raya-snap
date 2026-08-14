@@ -26,29 +26,34 @@ confinement: strict
 
 parts:
   v2ray-core:
-    source: https://github.com/v2fly/v2ray-core/releases/download/v5.16.1/v2ray-linux-64.zip
-    source-type: zip
     plugin: dump
+    source: ./v2ray_bin_@ARCH@          # Local directory, prepared by snap.sh
     organize:
       v2ray: usr/local/bin/v2ray
-      geoip.dat: usr/local/share/v2ray/geoip.dat
-      geosite.dat: usr/local/share/v2ray/geosite.dat
-      config.json: usr/local/etc/v2ray/config.json
     stage:
       - usr/local/bin/v2ray
-      - usr/local/share/v2ray/geoip.dat
-      - usr/local/share/v2ray/geosite.dat
-      - usr/local/etc/v2ray/config.json
     prime:
       - usr/local/bin/v2ray
-      - usr/local/share/v2ray/geoip.dat
-      - usr/local/share/v2ray/geosite.dat
-      - usr/local/etc/v2ray/config.json
+
   v2raya: 
     source: installer_debian_@ARCH@_@VERSION@.deb
     source-type: deb
     plugin: dump
-  # This wrappper is a workaround for both xdg-open and dekstop entries being broken in snapcraft
+
+  # 3. GeoIP/GeoSite from Loyalsoldier
+  v2ray-geo:
+    plugin: dump
+    source: ./geo_data                # Local directory, prepared by snap.sh
+    organize:
+      geoip.dat: usr/local/share/v2ray/geoip.dat
+      geosite.dat: usr/local/share/v2ray/geosite.dat
+    stage:
+      - usr/local/share/v2ray/geoip.dat
+      - usr/local/share/v2ray/geosite.dat
+    prime:
+      - usr/local/share/v2ray/geoip.dat
+      - usr/local/share/v2ray/geosite.dat
+
   v2raya-browser-wrapper:
     plugin: dump
     source: v2raya-browser-wrapper
@@ -61,11 +66,10 @@ parts:
 apps:
   v2raya:
     daemon: simple
-    command: usr/bin/v2raya --v2ray-bin $SNAP/usr/local/bin/v2ray
+    command: usr/bin/v2raya --v2ray-bin $SNAP/usr/local/bin/v2ray --v2ray-assetsdir $SNAP/usr/local/share/v2ray
     environment:
       V2RAYA_LOG_FILE: $SNAP_DATA/log/v2raya-snap.log
       V2RAYA_CONFIG:   $SNAP_DATA/etc
-      V2RAYA_V2RAY_ASSETSDIR: $SNAP_DATA/geoip
       V2RAYA_ADDRESS:  127.0.0.1:2017
     restart-condition: on-failure
     install-mode: enable
