@@ -2,3 +2,10 @@
 set -u
 
 mkdir -p "$SNAP_DATA/geoip"
+for f in geoip.dat geosite.dat; do
+  src="$SNAP/usr/local/share/v2ray/$f"
+  dst="$SNAP_DATA/geoip/$f"
+  if [ -f "$src" ] && [ ! -f "$dst" ]; then
+    cp "$src" "$dst"
+  fi
+done
