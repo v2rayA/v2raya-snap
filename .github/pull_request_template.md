@@ -1,0 +1,2 @@
+ - [ ] This PR was created using AI/LLM
+ - [ ] The .snap file was tested by a human and works fine without breaking core functionality
